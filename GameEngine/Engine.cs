@@ -18,7 +18,7 @@ namespace GameEngine
     {
         public string AuthorName { get; set; }
         public string State { get; set; }
-        public string Date { get; set; }
+        public string Date { get; set; } 
     }
 
     public class GameChangedEventArgs : EntityAddedEventArgs
