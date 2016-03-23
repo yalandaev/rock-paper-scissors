@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Login</title>
+    @Styles.Render("~/Content/login")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <body marginwidth="0" marginheight="0">
+        <div id="block_error">
+            <div>
+                <h2>@ViewBag.ErrorMessage</h2>
+                <p>
+                    It apperrs that Either something went wrong or the page doesn't exist anymore..<br />
+                    This website is temporarily unable to service your request as it has exceeded it’s resource limit. Please check back shortly.
+                </p>
+                <p>
+                    If you have any questions, please contact our Technical Support department.
+                </p>
+            </div>
+        </div>
+    </body>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</body>
+</html>
+
+

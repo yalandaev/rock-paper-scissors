@@ -1,0 +1,266 @@
+﻿@using WebClient.ViewModels
+@model HomeViewModel
+
+<div class="container-fluid wrapper">
+
+    <div class="col-lg-9">
+        <div id="game-panel">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-hand-right"></span> Games
+                </div>
+                <div class="panel-games-body">
+                    <div>
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Game list</a></li>
+                            <li role="presentation"><a href="#create" aria-controls="create" role="tab" data-toggle="tab">Create new game</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active game-list-tab" id="home">
+                                <div class="container-fluid">
+                                    <table id="gameList" class="display" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Creaion date</th>
+                                                <th>Author</th>
+                                                <th>Players</th>
+                                                <th>State</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            @foreach (var item in Model.Games)
+                                            {
+                                                <tr onclick="onTrClick(this)" data-id="@item.Id">
+                                                    <td>@item.Name</td>
+                                                    <td>@item.CreatedOn.ToShortDateString()</td>
+                                                    <td>@item.Creator.Name</td>
+                                                    <td>@item.Players.Count / 2</td>
+                                                    <td>@item.Status</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="create">
+                                @using (Html.BeginForm("Index", "Play", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { target = "_blank", @class = "form-horizontal", role = "form" }))
+                                {
+
+                                    <fieldset>
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="textinput">Name</label>
+                                            <div class="col-md-4">
+                                                <input id="Name" name="Name" type="text" placeholder="Name" class="form-control input-md">
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="textinput">Victory limit</label>
+                                            <div class="col-md-4">
+                                                <input type="number" id="VictoryLimit" name="VictoryLimit" placeholder="Victory limit" class="form-control input-md">
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="textinput">Turn duration</label>
+                                            <div class="col-md-4">
+                                                <input type="number" id="TurnDuration" name="TurnDuration" placeholder="Turn duration" class="form-control input-md">
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Button -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="singlebutton"></label>
+                                            <div class="col-md-4">
+                                                <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Create game!</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    
+                                    
+
+                                    @*<input type="text" id="Name" name="Name" class="form-control" placeholder="Game name" required autofocus>
+                                    <input type="number" id="TurnDuration" name="TurnDuration" class="form-control" placeholder="Turn duration" required>
+                                    <input type="number" id="VictoryLimit" name="VictoryLimit" class="form-control" placeholder="Victory limit" required>
+                                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create</button>*@
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="chat-panel">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                </div>
+                <div class="panel-body">
+                    <ul id="chat" class="chat">
+                        
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="messageText" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="sendmessage">
+                                Send
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div id="players-panel">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-user"></span> Players
+                </div>
+                <div class="panel-body">
+
+                    <ul class="players-list" id="playerList">
+                        @foreach (var item in Model.Players)
+                        {
+                            <li>@item.Name</li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <!--Script references. -->
+    <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
+    <!--Reference the SignalR library. -->
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    <!--SignalR script to update the chat page and send messages.-->
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                $('#gameList').DataTable({
+                    "order": [[3, "desc"]],
+                    "searching": true,
+                    "paging": true,
+                    "info": false
+                });
+            });
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    $("#sendmessage").click();
+                }
+            });
+
+            // Reference the auto-generated proxy for the hub.
+            var players = $.connection.playerHub;
+            var games = $.connection.gameHub;
+            var chat = $.connection.chatHub;
+
+
+            chat.client.addMessage = function (name, message, time) {
+
+                $('#chat').append('<li class="left clearfix">' +
+                            '<div class="chat-body clearfix">' +
+                                '<div class="header">' +
+                                    '<strong class="primary-font" style="padding-right: 15px;">' + name + '</strong>' +
+                                    '<small class="text-muted"><span class="glyphicon glyphicon-time"></span>'+ time +'</small>' +
+                                '</div>' +
+                                '<p>' + message + '</p>' +
+                            '</div>' +
+                        '</li>');
+                $("#chat").scrollTop($("#chat")[0].scrollHeight); //scroll to down
+
+            };
+
+            players.client.addPlayer = function (config) {
+                $('#playerList').append('<li id='+config.id+'><strong>' + config.name + '</li>');
+            };
+
+            players.client.removePlayer = function (config) {
+                $('#'+config.id).remove();
+            };
+
+            games.client.changeGameState = function (config) {
+                var a = $('tr[data-id="'+config.GameId+'"]').children()[4]; $(a).html(config.State)
+            };
+
+            games.client.updateGamePlayers = function (config) {
+                var a = $('tr[data-id="'+config.GameId+'"]').children()[3]; $(a).html(config.PlayersCount)
+            };
+
+            games.client.addGame = function (config) {
+                var table = $('#gameList').DataTable();
+
+                var i = table.row.add([
+                    config.name, config.date, config.author, "1/2", config.state
+                ]).draw().index();
+
+                var tableRow = table.row(i).node();
+                $(tableRow).attr("data-id", config.id);
+                $(tableRow).click(function(args){
+                    connectToGame(args.currentTarget.dataset.id);
+                })
+
+
+            };
+
+            onTrClick = function(args){
+                connectToGame(args.dataset.id);
+            }
+
+            connectToGame = function(id){
+                if (confirm("Connect to game?")) {
+                    var url = '@Url.Action("Index", "Play")';
+                    var win = window.open(url + '/' + id, '_blank');
+                    win.focus();
+                }  
+            };
+
+            games.client.removeGame = function (config) {
+                $('tr[data-id="'+config.id+'"]').remove()
+            };
+
+            // Set initial focus to message input box.
+            $('#messageText').focus();
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    if (!$('#messageText').val() == '') {
+                        // Call the Send method on the hub.
+                        chat.server.send(@Html.Raw("'" + ViewBag.PlayerName + "'") , $('#messageText').val());
+                        // Clear text box and reset focus for next comment.
+                        $('#messageText').val('').focus();
+                    }
+                });
+            });
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+
+}

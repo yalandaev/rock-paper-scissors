@@ -1,0 +1,5 @@
+C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\bin\Debug\GameEngine.dll
+C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\bin\Debug\GameEngine.pdb
+C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Debug\GameEngine.dll
+C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Debug\GameEngine.pdb
+C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Debug\GameEngine.csprojResolveAssemblyReference.cache

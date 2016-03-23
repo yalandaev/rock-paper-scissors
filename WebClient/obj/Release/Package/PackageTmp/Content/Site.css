@@ -1,0 +1,262 @@
+﻿
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    height: 220px;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    /*margin-left: 60px;*/
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    /*overflow-y: scroll;*/
+    height: 250px;
+}
+
+.panel-games-body
+{
+    height: 550px;
+}
+
+.panel-players-body
+{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+.game-list-tab{
+    overflow-y: scroll;
+    height: 475px;
+}
+
+.players-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.players-list li{
+    font-size: 16px;
+}
+
+#player1Name {
+    background: orangered;
+    display: inline;
+    font-size: 30px;
+    color: white;
+    padding: 0px 10px 5px 10px;
+    margin: 10px;
+}
+#player1Points {
+    background: orangered;
+    display: inline;
+    font-size: 30px;
+    color: white;
+    padding: 0px 10px 5px 10px;
+    margin: 2px;
+}
+#player2Points {
+    background: cornflowerblue;
+    display: inline;
+    font-size: 30px;
+    color: white;
+    padding: 0px 10px 5px 10px;
+    margin: 2px;
+}
+#player2Name {
+    background: cornflowerblue;
+    display: inline;
+    font-size: 30px;
+    color: white;
+    padding: 0px 10px 5px 10px;
+    margin: 10px;
+}
+#turn, .turn {
+    background: #707f92;
+    font-size: 40px;
+    color: white;
+    padding: 0px 10px 5px 10px;
+    display: inline;
+    margin-top: 20px;
+}
+.action-image {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+.spock {
+     background: url("img/spock.png") repeat-y;
+    background-size: cover;
+ }
+.lizard {
+    background: url("img/lizard.png") repeat-y;
+    background-size: cover;
+}
+.paper {
+    background: url("img/paper.png") repeat-y;
+    background-size: cover;
+}
+.scissors {
+    background: url("img/scissors.png") repeat-y;
+    background-size: cover;
+}
+.rock {
+    background: url("img/rock.png") repeat-y;
+    background-size: cover;
+}
+.spock2 {
+    background: url("img/spock2.png") repeat-y;
+    background-size: cover;
+}
+.lizard2 {
+    background: url("img/lizard2.png") repeat-y;
+    background-size: cover;
+}
+.paper2 {
+    background: url("img/paper2.png") repeat-y;
+    background-size: cover;
+}
+.scissors2 {
+    background: url("img/scissors2.png") repeat-y;
+    background-size: cover;
+}
+.rock2 {
+    background: url("img/rock2.png") repeat-y;
+    background-size: cover;
+}
+.unknown {
+    background: url("img/_Unknown.png") repeat-y;
+    background-size: cover;
+}
+tr {
+    cursor: pointer;
+}
+
+  #block_error{
+      width: 845px;
+      height: 384px;
+      border: 1px solid #cccccc;
+      margin: 72px auto 0;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
+      background: #fff url("img/block.gif" ) no-repeat 0 51px;
+  }
+  #block_error div{
+      padding: 100px 40px 0 186px;
+  }
+  #block_error div h2{
+      color: #218bdc;
+      font-size: 24px;
+      display: block;
+      padding: 0 0 14px 0;
+      border-bottom: 1px solid #cccccc;
+      margin-bottom: 12px;
+      font-weight: normal;
+  }
+
+  .battleLog {
+    list-style-type: none;
+    padding: 0;
+    font-size: 18px;
+  }
+
+  .turn-container {
+    height: 85px;
+    width: 200px;
+    border: solid 1px;
+    border-color: #D0D0D0;
+    padding: 7px;
+}
+.turn-container-title {
+    font-size: 18px;
+    margin: 0;
+}
+.turn-container-winner {
+    color: #83c26a;
+    margin-right: 5px;
+    font-size: 16px;
+    margin: 0;
+    display: inline;
+}
+.turn-container-looser {
+    color: indianred;
+    margin-right: 5px;
+    font-size: 16px;
+    margin: 0;
+    display: inline;
+}

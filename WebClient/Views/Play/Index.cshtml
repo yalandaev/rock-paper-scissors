@@ -1,0 +1,459 @@
+﻿@model GameEngine.Game
+
+<div class="container-fluid wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="center-block text-center">
+                <p id="player1Name">@Model.Creator.Name</p>
+                <p id="player1Points">@Model.Creator.Points</p>
+                <p id="player2Points">@ViewBag.Player2Points</p>
+                <p id="player2Name">@ViewBag.Player2Name</p>
+            </div>
+            <div class="center-block text-center">
+                <p class="turn">Game state:</p><p class="turn" id="status">@Model.Status</p>
+            </div>
+            <div class="center-block text-center">
+                <p class="turn">Turn:</p><p id="turn">1</p>
+            </div>
+            <div class="center-block text-center" id="timeBlock">
+                <p class="turn">Time:</p><p class="turn" id="time">00:00</p>
+            </div>
+            <div class="center-block text-center">
+                <button type="button" class="btn btn-success" id="startGame">Start game</button>
+                <button type="button" class="btn btn-success" id="exitGame">Exit game</button>
+            </div>
+            <div id="turnActions">
+                <h1 class="text-center">Selected action:</h1>
+                <div class="center-block text-center">
+                    <div class="unknown action-image" id="player1Choice"></div>
+                    <div class="unknown action-image" id="player2Choice"></div>
+                </div>
+                <div class="center-block text-center">
+                    <button type="button" class="btn btn-success" id="getHint">Get hint</button>
+                </div>
+                
+                <h2 id="winMessage" class="text-center"></h2>
+            </div>
+            <div id="actionsPanel">
+                <h1 class="text-center">Select action:</h1>
+                <div class="center-block text-center">
+                    <div class="spock action-image" data-action="4" id="spock-action"></div>
+                    <div class="lizard action-image" data-action="3" id="lizard-action"></div>
+                    <div class="rock action-image" data-action="0" id="rock-action"></div>
+                    <div class="scissors action-image" data-action="2" id="scissors-action"></div>
+                    <div class="paper action-image" data-action="1" id="paper-action"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation"><a href="#logTab" class="active" aria-controls="logTab" role="tab" data-toggle="tab">Battle log</a></li>
+                    <li role="presentation"><a href="#tunsTab" aria-controls="settingstunsTab" role="tab" data-toggle="tab">Turns</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active" id="logTab">
+                        <h1>BattleLog</h1>
+                        <ul class=".battleLog" id="battlelog"></ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="tunsTab">
+                        <h1>Turns</h1>
+                        @foreach (var item in Model.Turns)
+                        {
+                            <div class="turn-container">
+                                <p class="turn-container-title">Turn @Model.Turns.IndexOf(item)</p>
+                                @foreach (var act in item.GameActions)
+                                {
+                                    <p>@act.Key.Name: @act.Value</p>
+                                    if (item.HintsUsed.Contains(@act.Key))
+                                    {
+                                        <span class="label label-primary">Hint</span>
+                                    }
+                                    if (!item.IsDraw)
+                                    {
+                                        if (act.Key == item.Winner)
+                                        {
+                                            <p class="turn-container-winner">@act.Key.Name : @act.Value</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="turn-container-looser">@act.Key.Name : @act.Value</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p class="turn-container-looser">@act.Key.Name : @act.Value</p>
+                                    }
+                                }
+ 
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+
+@section scripts {
+<!--Script references. -->
+<!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
+<!--Reference the SignalR library. -->
+<script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="~/signalr/hubs"></script>
+<!--SignalR script to update the chat page and send messages.-->
+<script>
+    //var ajaxGetDataUrl = '@Url.Action("StartGame", "Game")';
+
+    $(function () {
+        var playersCount = 0;
+        var gameStatus = '@Model.Status';
+
+        var hintUsed = '@ViewBag.HintUsed' == 'True' ? true : false;
+
+        $('#status').html(gameStatus);
+
+        setObjectsVisibility = function (){
+            switch (gameStatus) {
+                case "Waiting":
+                    $("#timeBlock").hide();
+                    break;
+                case "Game":
+                    $('#startGame').hide();
+                    $("#timeBlock").show();
+                    break;
+                case "Finished":
+                    $("#timeBlock").hide();
+                    break;
+                default:
+            };
+
+            if(hintUsed)
+                $("#getHint").hide();
+        };
+
+        setObjectsVisibility();
+
+
+
+        var gameActions = {
+            /// Камень
+            Stone : 0,
+            /// Бумага
+            Paper : 1,
+            /// Ножницы
+            Scissors: 2,
+            /// Ящерица
+            Lizard: 3,
+            /// Спок
+            Spock: 4,
+            /// Unknown
+            Unknown: 5
+        };
+        var actionsButtons = [
+            "#rock-action", "#spock-action", "#paper-action", "#scissors-action", "#lizard-action"
+        ];
+        var actionsGrayIcons = {
+            "#rock-action": "rock2",
+            "#spock-action" : "spock2",
+            "#paper-action" : "paper2",
+            "#scissors-action" : "scissors2",
+            "#lizard-action": "lizard2"
+        }
+        var actionsNormalIcons = {
+            "#rock-action": "rock",
+            "#spock-action" : "spock",
+            "#paper-action" : "paper",
+            "#scissors-action" : "scissors",
+            "#lizard-action": "lizard"
+        };
+
+        var canSelect = true;
+
+
+        ajaxGetDataUrl = '../../api/game';
+        var PlayerName = @Html.Raw("'" + ViewBag.PlayerName + "'");
+        var GameName = @Html.Raw("'" + ViewBag.GameName + "'");
+
+        log = function(message){
+            $('#battlelog').prepend('<li>' + message + '</li>');
+        };
+
+        var globalTimeInterval;
+
+        startTimer = function(duration, display) {
+            var timer = duration, minutes, seconds;
+            if(globalTimeInterval)
+                clearInterval(globalTimeInterval);
+                globalTimeInterval = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.text(minutes + ":" + seconds);
+
+                    if (--timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+        }
+
+        var playHub = $.connection.playHub;
+
+        playHub.client.onNotification = function (config) {
+            log(config.Time + ': ' + config.Message);
+        };
+        playHub.client.onTurnFinished = function (config) {
+            if(!config.isDraw)
+            {
+                $('#player1Points').html(config.player1Points);
+                $('#player2Points').html(config.player2Points);
+                $("#winMessage").text(config.turnWinner + " win current turn!");
+            } else {
+                $("#winMessage").text("Draw!");
+            }
+
+            $('#turn').html(config.nextTurn);
+
+
+            var otherPlayerAction = PlayerName == config.player1Name ? config.player2Action : config.player1Action;
+            if(otherPlayerAction != -1){
+                changeActionClass("#player2Choice", otherPlayerAction);
+            }
+
+            var seconds = @Model.TurnDuration ;
+            display = $('#time');
+            if(gameStatus == "Game"){
+                startTimer(seconds, display);
+            }
+
+
+            var myInterval = window.setInterval(function (a,b) {
+                restoreActionButtons();
+                changeActionClass("#player1Choice", 5);
+                changeActionClass("#player2Choice", 5);
+                $("#winMessage").text("");
+            },1500);
+            window.setTimeout(function (a,b) {
+                clearInterval(myInterval);
+                canSelect = true;
+            },1500);
+
+            //<div class="turn-container">
+            //<p class="turn-container-title">Turn 1</p>
+            //<p class="turn-container-winner">Player 1: Scissors</p><span class="label label-primary">Hint</span>
+            //<p class="turn-container-looser">Player 2: Stone</p>
+            //</div>
+
+            //config.turnWinner
+            //config.player1Points
+            //config.player2Points
+            //config.currentTurn
+            //config.nextTurn
+            //config.time
+            //config.player1Action
+            //config.player2Action
+            //config.player1Name
+            //config.player2Name
+            //config.isDraw
+        };
+        playHub.client.onGameFinished = function (config) {
+            //config.gameWinner
+            //config.time
+            log(config.time + ": Победил " + config.gameWinner);
+            $("#winMessage").text(config.gameWinner + " win the game!");
+            setObjectsVisibility();
+            //$("#timeBlock").hide();
+        };
+        playHub.client.onPlayerAction = function (config) {
+            //Событие при действии игрока (выборе варианта)
+        };
+        //TODO delete this method
+        playHub.client.changeGameState = function (config) {
+            $('#status').html(config);
+        };
+        playHub.client.onTurnTimeout = function (config) {
+            log(config.Message);
+            $('#player1Points').html(config.player1Points);
+            $('#player2Points').html(config.player2Points);
+        };
+        playHub.client.addPlayer2 = function (config) {
+            $('#player2Name').html(config.Player2Name);
+            $('#player2Points').html("0");
+            $('#battlelog').append('<li>' + config.Player2Name + ' connected</li>');
+        };
+        $.connection.hub.start().done(function () {
+            playHub.server.joinGroup(GameName);
+        });
+
+        playHub.client.onStateChanged = function (config) {
+            gameStatus = config.State;
+            $('#status').html(config.State);
+            setObjectsVisibility();
+        };
+        playHub.client.turnLog = function (config) {
+            $("#tunsTab").append(config.Markup);       
+        };
+        playHub.client.onPlayersCountChanged = function (config) {
+            playersCount = config.PlayersCount;
+        };
+        playHub.client.onPlayerLeaveNotStartedGame = function (config) {
+            resetPlayerScore(config.Player);
+        };
+
+        playHub.client.onGameStarted = function(){
+            $('#startGame').hide();
+            var seconds = @Model.TurnDuration ;
+            display = $('#time');
+            startTimer(seconds, display);
+        };
+
+        changeActionClass = function(selector, action) {
+            $(selector).removeClass();
+            var classes = "";
+            switch (action) {
+                case gameActions.Stone:
+                    classes += "rock";
+                    break;
+                case gameActions.Paper:
+                    classes += "paper";
+                    break;
+                case gameActions.Lizard:
+                    classes += "lizard";
+                    break;
+                case gameActions.Scissors:
+                    classes += "scissors";
+                    break;
+                case gameActions.Spock:
+                    classes += "spock";
+                    break;
+                case gameActions.Unknown:
+                    classes += "unknown";
+                    break;
+                default:
+
+            }
+            $(selector).addClass(classes);
+            $(selector).addClass("action-image");
+        };
+
+        grayOtherActions = function(selectedAction){
+            actionsButtons.forEach(function(item, i, arr) {
+                if(item != selectedAction){
+                    $(item).removeClass();
+                    $(item).addClass(actionsGrayIcons[item]);
+                    $(item).addClass("action-image");
+                }
+            });
+        }
+        restoreActionButtons = function(){
+            actionsButtons.forEach(function(item, i, arr) {
+                $(item).removeClass();
+                $(item).addClass(actionsNormalIcons[item]);
+                $(item).addClass("action-image");
+            });
+        };
+
+        $('#spock-action, #lizard-action, #rock-action, #scissors-action, #paper-action').click(function (args) {
+            if(canSelect && gameStatus == "Game"){
+                canSelect = false;
+                var action = args.target.dataset.action;
+                changeActionClass("#player1Choice", parseInt(action));
+                grayOtherActions("#" + args.target.id);
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxGetDataUrl,
+                    data: {
+                        "Method": 5,
+                        "GameName": GameName,
+                        "PlayerName": PlayerName,
+                        "Action": action
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                    }
+                });
+            }
+        });
+
+
+        $('#startGame').click(function () {
+            if(gameStatus == "Waiting" && playersCount == 2){
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxGetDataUrl,
+                    data: {
+                        "Method": 6,
+                        "GameName": GameName,
+                        "PlayerName": PlayerName,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        
+                    }
+                });
+            } else {
+                alert("Two players needed!")
+            }
+        });
+
+        $('#getHint').click(function () {
+            $("#getHint").hide();
+            $.ajax({
+                type: 'POST',
+                url: ajaxGetDataUrl,
+                data: {
+                    "Method": 7,
+                    "GameName": GameName,
+                    "PlayerName": PlayerName,
+                },
+                dataType: "json",
+                success: function (data) {
+                    changeActionClass("#player2Choice", data)
+                }
+            });
+        });
+
+        $('#exitGame').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: ajaxGetDataUrl,
+                data: {
+                    "Method": 3,
+                    "GameName": GameName,
+                    "PlayerName": PlayerName,
+                },
+                dataType: "json",
+                success: function (data) {
+                    window.open('', '_self', '');
+                    window.close();
+                }
+            });
+        });
+
+        resetPlayerScore = function(playerName){
+            var selector = playerName == @Html.Raw("'" + @Model.Creator.Name + "'") ? "#player1" : "#player2";
+            $(selector + "Name").html("None");
+            $(selector + "Points").html("0");
+        };
+
+
+    });
+    function htmlEncode(value) {
+        var encodedValue = $('<div />').text(value).html();
+        return encodedValue;
+    }
+</script>
+}    

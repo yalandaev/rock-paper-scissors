@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{BE20F79D-EBC7-4BB1-8D8D-8B3EC33C9AEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{AE931145-6828-4673-A851-9CA7365840CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{D870D559-12FE-4CAE-931F-901A9E0EEF04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{22817C13-21E8-40A9-B9EC-8CB66A4DF7EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE20F79D-EBC7-4BB1-8D8D-8B3EC33C9AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE20F79D-EBC7-4BB1-8D8D-8B3EC33C9AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE20F79D-EBC7-4BB1-8D8D-8B3EC33C9AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE20F79D-EBC7-4BB1-8D8D-8B3EC33C9AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE931145-6828-4673-A851-9CA7365840CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE931145-6828-4673-A851-9CA7365840CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE931145-6828-4673-A851-9CA7365840CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE931145-6828-4673-A851-9CA7365840CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D870D559-12FE-4CAE-931F-901A9E0EEF04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D870D559-12FE-4CAE-931F-901A9E0EEF04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D870D559-12FE-4CAE-931F-901A9E0EEF04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D870D559-12FE-4CAE-931F-901A9E0EEF04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22817C13-21E8-40A9-B9EC-8CB66A4DF7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22817C13-21E8-40A9-B9EC-8CB66A4DF7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22817C13-21E8-40A9-B9EC-8CB66A4DF7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22817C13-21E8-40A9-B9EC-8CB66A4DF7EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://yalandaev.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ConsoleClient\\ConsoleClient.csproj
+		SccProjectName1 = ConsoleClient
+		SccLocalPath1 = ConsoleClient
+		SccProjectUniqueName2 = GameEngine\\GameEngine.csproj
+		SccProjectName2 = GameEngine
+		SccLocalPath2 = GameEngine
+		SccProjectUniqueName3 = Resources\\Resources.csproj
+		SccProjectName3 = Resources
+		SccLocalPath3 = Resources
+		SccProjectUniqueName4 = WebClient\\WebClient.csproj
+		SccProjectName4 = WebClient
+		SccLocalPath4 = WebClient
+	EndGlobalSection
+EndGlobal
