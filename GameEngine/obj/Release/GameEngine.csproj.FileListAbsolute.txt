@@ -3,3 +3,8 @@ C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Gam
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Release\GameEngine.csprojResolveAssemblyReference.cache
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Release\GameEngine.dll
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\GameEngine\obj\Release\GameEngine.pdb
+C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\bin\Release\GameEngine.dll
+C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\bin\Release\GameEngine.pdb
+C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Release\GameEngine.csprojResolveAssemblyReference.cache
+C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Release\GameEngine.dll
+C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Release\GameEngine.pdb

@@ -65,47 +65,18 @@ namespace WebClient.WebAPI
         /// <param name="args"></param>
         private void LogTurn(object sender, GameChangedEventArgs args)
         {
-            string markup = "<div class='turn-container'>";
-            markup += "<p class='turn-container-title'>Turn "+ args.CurrentTurn +"</p>";
-            if(!string.IsNullOrEmpty(args.Player1Name))
-            {
-                if (string.IsNullOrEmpty(args.TurnWinner))
-                    args.TurnWinner = string.Empty;
-                var classes = "turn-container-looser";
-                if(args.Player1Name == args.TurnWinner)
-                {
-                    classes = "turn-container-winner";
-                }
-                markup += "<p class='"+ classes +"'>"+ args.Player1Name + ": " + GetActionByCode(args.Player1Action) + "</p>";
-                if(args.Player1UsedHint)
-                {
-                    markup += "<span class='label label-primary'>Hint</span>";
-                }
-                markup += "<br>";
-            }
-            //TODO: NEED TO DRY!
-            if (!string.IsNullOrEmpty(args.Player2Name))
-            {
-                if (string.IsNullOrEmpty(args.TurnWinner))
-                    args.TurnWinner = string.Empty;
-                var classes = "turn-container-looser";
-                if (args.Player2Name == args.TurnWinner)
-                {
-                    classes = "turn-container-winner";
-                }
-                markup += "<p class='" + classes + "'>" + args.Player2Name + ": " + GetActionByCode(args.Player2Action) + "</p>";
-                if (args.Player2UsedHint)
-                {
-                    markup += "<span class='label label-primary'>Hint</span>";
-                }
-            }
-            markup += "</div>";
-
             var context = GlobalHost.ConnectionManager.GetHubContext<PlayHub>();
             context.Clients.Group(args.GameName).turnLog(
                 new
                 {
-                    Markup = markup
+                    CurrentTurn = args.CurrentTurn,
+                    TurnWinner = args.TurnWinner,
+                    Player1Name = args.Player1Name,
+                    Player1Action = GetActionByCode(args.Player1Action),
+                    Player1UsedHint = args.Player1UsedHint,
+                    Player2Name = args.Player2Name,
+                    Player2Action = GetActionByCode(args.Player2Action),
+                    Player2UsedHint = args.Player2UsedHint
                 }
             );
         }
