@@ -48,7 +48,12 @@
     };
 
     games.client.updateGamePlayers = function (config) {
-        var a = $('tr[data-id="'+config.GameId+'"]').children()[3]; $(a).html(config.PlayersCount)
+        var a = $('tr[data-id="' + config.GameId + '"]').children()[3];
+        $(a).html(config.PlayersCount)
+        //if (config.PlayersCount == '0/2') {
+        //    var table = $('#gameList').DataTable();
+        //    table.rows($('tr[data-id="' + config.id + '"]'))[0].remove().draw();
+        //}
     };
 
     games.client.addGame = function (config) {
@@ -63,8 +68,6 @@
         $(tableRow).click(function(args){
             connectToGame(args.currentTarget.dataset.id);
         })
-
-
     };
 
     onTrClick = function(args){
@@ -80,7 +83,8 @@
     };
 
     games.client.removeGame = function (config) {
-        $('tr[data-id="'+config.id+'"]').remove()
+        //datatables.js api
+        $('#gameList').DataTable().row($('tr[data-id="' + config.id + '"]')).remove().draw();
     };
 
     // Set initial focus to message input box.

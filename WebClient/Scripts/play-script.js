@@ -1,6 +1,9 @@
 ﻿$(function () {
     var playersCount = 0;
 
+    if (canStartGame == 'False') {
+        $('#startGame').hide();
+    }
 
     $('#status').html(gameStatus);
 
@@ -140,9 +143,8 @@
         $('#status').html(config);
     };
     playHub.client.onTurnTimeout = function (config) {
-        log(config.Message);
-        $('#player1Points').html(config.player1Points);
-        $('#player2Points').html(config.player2Points);
+        log("Turn timeout!");
+        $('#turn').html(config.turn);
     };
     playHub.client.addPlayer2 = function (config) {
         $('#player2Name').html(config.Player2Name);
@@ -297,20 +299,22 @@
     });
 
     $('#getHint').click(function () {
-        $("#getHint").hide();
-        $.ajax({
-            type: 'POST',
-            url: ajaxGetDataUrl,
-            data: {
-                "Method": 7,
-                "GameName": GameName,
-                "PlayerName": PlayerName,
-            },
-            dataType: "json",
-            success: function (data) {
-                changeActionClass("#player2Choice", data)
-            }
-        });
+        if (canSelect) {
+            $("#getHint").hide();
+            $.ajax({
+                type: 'POST',
+                url: ajaxGetDataUrl,
+                data: {
+                    "Method": 7,
+                    "GameName": GameName,
+                    "PlayerName": PlayerName,
+                },
+                dataType: "json",
+                success: function (data) {
+                    changeActionClass("#player2Choice", data)
+                }
+            });
+        }
     });
 
     $('#exitGame').click(function () {

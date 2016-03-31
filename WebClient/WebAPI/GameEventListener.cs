@@ -269,9 +269,7 @@ namespace WebClient.WebAPI
             var context = GlobalHost.ConnectionManager.GetHubContext<PlayHub>();
             context.Clients.Group(args.GameName).onTurnTimeout(new
             {
-                Message = args.Message,
-                player1Points = args.Player1Points,
-                player2Points = args.Player2Points
+                turn = args.NextTurn
             });
         }
         /// <summary>

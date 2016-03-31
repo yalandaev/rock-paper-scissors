@@ -8,3 +8,8 @@ C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\bin\Debug\Ga
 C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.csprojResolveAssemblyReference.cache
 C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.dll
 C:\Users\yalandaev\Desktop\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\GameEngine\bin\Debug\GameEngine.dll
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\GameEngine\bin\Debug\GameEngine.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.csprojResolveAssemblyReference.cache
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.dll
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\GameEngine\obj\Debug\GameEngine.pdb

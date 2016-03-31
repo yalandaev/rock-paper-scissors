@@ -112,7 +112,8 @@
         GameName = @Html.Raw("'" + ViewBag.GameName + "'");
         seconds = @Model.TurnDuration;
         creatorName = @Html.Raw("'" + @Model.Creator.Name + "'");
-        
+        canStartGame = @Html.Raw("'" + ViewBag.CanStartGame + "'");
+
     </script>
     <script src="~/Scripts/play-script.js"></script>
 }    

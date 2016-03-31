@@ -148,8 +148,13 @@ namespace GameEngine
         /// <returns></returns>
         public bool ConnectToGame(string gameName, string playerName)
         {
-            Game game = GetGameByName(gameName);
             Player player = GetPlayer(playerName);
+
+            if ((DateTime.Now - player.CantPlayFrom).TotalSeconds < 60)
+                return false;
+
+            Game game = GetGameByName(gameName);
+            
             if (game != null)
             {
                 game.JoinToGame(player);
@@ -167,6 +172,13 @@ namespace GameEngine
         {
             Game game = GetGameById(id);
             Player player = GetPlayer(playerName);
+
+            if ((DateTime.Now - player.CantPlayFrom).TotalSeconds < 60)
+            {
+                throw new Exception("Can't connect to game: one minute ban");
+            }
+                
+
             player.Points = 0;
             if (game != null)
             {
@@ -357,6 +369,8 @@ namespace GameEngine
         /// </summary>
         public bool HintUsed { get; set; }
 
+        public DateTime CantPlayFrom { get; set; }
+
         public Player(string name)
         {
             Id = Guid.NewGuid();
@@ -481,6 +495,29 @@ namespace GameEngine
                 currentTurn.IsDraw = true;
                 MakeNotification(string.Format("Turn {0}  - Timeout. Nobody wins", CurrentTurn));
 
+                Player player1 = Players[0];
+                Player player2 = Players[1];
+
+                var player1Action = currentTurn.GameActions.Find(x => x.Key == player1);
+                var player2Action = currentTurn.GameActions.Find(x => x.Key == player2);
+
+                TurnFinished(this, new GameChangedEventArgs()
+                {
+                    GameName = Name,
+                    Player1Points = player1.Points,
+                    Player2Points = player2.Points,
+                    CurrentTurn = CurrentTurn,
+                    NextTurn = CurrentTurn + 1,
+                    TurnWinner = currentTurn.Winner != null ? currentTurn.Winner.Name : "nobody",
+                    Time = DateTime.Now.ToShortTimeString(),
+                    Player1Action = player1Action.Key == null ? -1 : (int)player1Action.Value,
+                    Player2Action = player2Action.Key == null ? -1 : (int)player2Action.Value,
+                    Player1Name = player1.Name,
+                    Player2Name = player2.Name,
+                    Player1UsedHint = currentTurn.HintsUsed.Contains(player1),
+                    Player2UsedHint = currentTurn.HintsUsed.Contains(player2),
+                });
+                //TurnTimeout(this, new GameChangedEventArgs() { GameName = Name, NextTurn = CurrentTurn + 1 });
                 NextTurn();
             }
             if (actionCount == 1)
@@ -547,7 +584,8 @@ namespace GameEngine
                 PlayersCountChanged(this, new GameChangedEventArgs() { GameName = Name, PlayersCount = Players.Count, Id = Id });
                 return true;
             }
-            return false;
+            throw new Exception("Player list is full!");
+            //return false;
         }
         /// <summary>
         /// Начать игру
@@ -662,6 +700,7 @@ namespace GameEngine
             }
             if (Players.Count == 2 && Status == GameStatus.Game)
             {
+                player.CantPlayFrom = DateTime.Now;
                 Winner = Players.Find(x => x != player);
                 Status = GameStatus.Finished;
                 StateChanged(this, new GameChangedEventArgs() { GameName = Name, Status = "Finished", Id = Id });
