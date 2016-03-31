@@ -5,3 +5,10 @@ C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Res
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Resources\obj\Debug\Resources.dll
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Resources\obj\Debug\Resources.pdb
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\bin\Debug\Resources.dll
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\bin\Debug\Resources.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\obj\Debug\Resources.Resources.resources
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\obj\Debug\Resources.dll
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\Resources\obj\Debug\Resources.pdb

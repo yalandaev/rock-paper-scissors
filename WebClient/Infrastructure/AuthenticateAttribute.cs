@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebClient.App_Start;
 using WebClient.Models;
 
 namespace WebClient.Infrastructure
@@ -27,9 +28,8 @@ namespace WebClient.Infrastructure
                 return true;
 
             var container = new UnityContainer();
-            //Account user = container.Resolve<IAuthenticationService>().CurrentUser;
-            var repository = new FakeAccountRepository();
-            var service = new FormsAuthenticationService(repository);
+            IAccountRepository repository = UnityConfig.GetConfiguredContainer().Resolve<IAccountRepository>();
+            IAuthenticationService service = UnityConfig.GetConfiguredContainer().Resolve<IAuthenticationService>();
             Account user = service.CurrentUser;
 
             if (user == null)

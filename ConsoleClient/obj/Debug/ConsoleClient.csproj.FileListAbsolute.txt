@@ -6,3 +6,11 @@ C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\Con
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\ConsoleClient\obj\Debug\ConsoleClient.csprojResolveAssemblyReference.cache
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\ConsoleClient\obj\Debug\ConsoleClient.exe
 C:\Users\yalandaev\Documents\Visual Studio 2015\Projects\GameEngine_TestTask\ConsoleClient\obj\Debug\ConsoleClient.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\bin\Debug\ConsoleClient.exe.config
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\bin\Debug\ConsoleClient.exe
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\bin\Debug\ConsoleClient.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\bin\Debug\GameEngine.dll
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\bin\Debug\GameEngine.pdb
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\obj\Debug\ConsoleClient.csprojResolveAssemblyReference.cache
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\obj\Debug\ConsoleClient.exe
+C:\Users\yalandaev\Desktop\ASP.NET\GameEngine_TestTask\Game_Test\ConsoleClient\obj\Debug\ConsoleClient.pdb

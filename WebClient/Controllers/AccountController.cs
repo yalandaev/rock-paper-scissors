@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebClient.App_Start;
 using WebClient.Infrastructure;
 using WebClient.Models;
 using WebClient.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace WebClient.Controllers
 {
@@ -19,8 +21,8 @@ namespace WebClient.Controllers
         [HttpPost]
         public RedirectResult Login(LoginViewModel model)
         {
-            var repository = new FakeAccountRepository();
-            var service = new FormsAuthenticationService(repository);
+            IAccountRepository repository = UnityConfig.GetConfiguredContainer().Resolve<IAccountRepository>();
+            IAuthenticationService service = UnityConfig.GetConfiguredContainer().Resolve<IAuthenticationService>();
 
             service.Login(model.Name, model.Password, model.RememberMe);
 
@@ -37,8 +39,8 @@ namespace WebClient.Controllers
         [HttpPost]
         public RedirectResult Register(LoginViewModel model)
         {
-            var repository = new FakeAccountRepository();
-            var service = new FormsAuthenticationService(repository);
+            IAccountRepository repository = UnityConfig.GetConfiguredContainer().Resolve<IAccountRepository>();
+            IAuthenticationService service = UnityConfig.GetConfiguredContainer().Resolve<IAuthenticationService>();
 
             Account account = new Account() { Id = Guid.NewGuid(), Name = model.Name, Password = model.Password };
             repository.CreateAccount(account);
