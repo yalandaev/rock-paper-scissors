@@ -9,13 +9,26 @@
 
 Либо зарегистрироваться
 ![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/2.png)
+Данные пользователей хранятся в «фейковом» репозитории, в оперативной памяти. При перезапуске приложения будут удалены.
 
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
-![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/1.png)
+Главное окно лобби разделено не несколько частей  - чат, список игроков и список игр.
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/3.png)
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/4.png)
+
+Список игр динамически обновляется (сами игры, и колонки «Игроки» и «Состояние»)
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/5.png)
+
+Создать игру:
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/6.png)
+
+Другой игрок может войти в игру кликнув на неё мышью в списке игр.
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/7.png)
+
+Окно «Боя»: 
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/8.png)
+
+Ведётся лог игры:
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/9.png)
+
+И вот тут тоже:
+![alt tag](https://github.com/yalandaev/rock-paper-scissors/blob/master/Images/10.png)
